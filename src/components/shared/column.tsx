@@ -1,6 +1,7 @@
 import { ItemType } from "@/lib/ItemData";
 import { ColumnDef } from "@tanstack/react-table";
 import CustomCombobox from "./CustomCombobox";
+import React from "react";
 
 type TypeLineItem = {
   allData: { label: string; value: string }[];
@@ -16,46 +17,44 @@ export const Columns = ({
   searchValue,
   onValueChange,
   placeholder,
-}: TypeLineItem): ColumnDef<ItemType>[] => [
-  {
-    accessorKey: "_id",
+}: TypeLineItem): ColumnDef<ItemType>[] =>
+  React.useMemo<ColumnDef<ItemType>[]>(
+    () => [
+      {
+        accessorKey: "_id",
 
-    header: "SR",
-  },
-  {
-    accessorKey: "name",
-    header: "Title",
-  },
-  {
-    accessorKey: "project",
-    header: "Project",
-    cell: () => {
-      // const handleProjectQueryChange = (searchQuery: string) => {
-      //   handleQuery({ [name]: { query: { name: searchQuery } } });
-      //   console.log("query", searchQuery);
-      // };
-      return (
-        <CustomCombobox
-          handleQuery={handleQuery}
-          searchValue={searchValue}
-          allData={allData}
-          isBackendSearch={true}
-          onValueChange={onValueChange}
-          placeholder={placeholder}
-        />
-      );
-    },
-  },
-  {
-    accessorKey: "branch",
-    header: "Branch",
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-  },
-];
+        header: "SR",
+      },
+      {
+        accessorKey: "name",
+        header: "Title",
+      },
+      {
+        accessorKey: "project",
+        header: "Project",
+        cell: () => (
+          <CustomCombobox
+            handleQuery={handleQuery}
+            searchValue={searchValue}
+            allData={allData}
+            isBackendSearch={true}
+            onValueChange={onValueChange}
+            placeholder={placeholder}
+          />
+        ),
+      },
+      {
+        accessorKey: "branch",
+        header: "Branch",
+      },
+      {
+        accessorKey: "status",
+        header: "Status",
+      },
+      {
+        accessorKey: "amount",
+        header: "Amount",
+      },
+    ],
+    [allData, handleQuery, onValueChange, placeholder, searchValue]
+  );

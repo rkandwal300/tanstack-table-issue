@@ -25,20 +25,46 @@ export default function CustomCombobox({
   onValueChange: (data: string) => void;
   placeholder: string;
 }) {
+  const [options, setOptions] = React.useState<
+    { label: string; value: string }[]
+  >([]);
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
   const [inputValue, setInputValue] = React.useState(searchValue || "");
   React.useEffect(() => {
     onValueChange(value);
   }, [onValueChange, value]);
-  console.log("allData : ", allData);
+  // console.log("allData : ", allData);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     setInputValue(inputValue);
     if (isBackendSearch) {
       handleQuery(inputValue);
+      handleSort(inputValue);
     }
   };
+
+  function handleSort(inputValue: string) {
+    if (inputValue === "") {
+      setOptions(allData);
+    } else {
+      const sortedData = allData.filter((data) =>
+        data.label.toLowerCase().includes(inputValue.toLowerCase())
+      );
+      setOptions(sortedData);
+    }
+  }
+  React.useEffect(() => {
+    if (searchValue) {
+      setInputValue(searchValue);
+    }
+  }, [searchValue]);
+  React.useEffect(() => {
+    if (searchValue) {
+      setOptions(allData);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Popover open={open} onOpenChange={setOpen} modal={true}>
@@ -61,9 +87,9 @@ export default function CustomCombobox({
             onChange={handleInputChange}
             placeholder={placeholder}
           />
-          {allData.length > 0 ? (
+          {options.length > 0 ? (
             <CommandGroup>
-              {allData.map((data) => (
+              {options.map((data) => (
                 <Button
                   key={data.value}
                   variant="ghost"

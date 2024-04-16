@@ -15,7 +15,6 @@ function App() {
   const handleQuery = (search: string) => {
     setValue(search);
   };
-  console.log("search value : ", value);
 
   React.useEffect(() => {
     setProjects(
@@ -37,7 +36,6 @@ function App() {
     placeholder: "Select project",
   });
 
-  // console.log(" projects ", projects);
   return (
     <div className="flex flex-col  gap-2 ">
       <CustomCombobox
