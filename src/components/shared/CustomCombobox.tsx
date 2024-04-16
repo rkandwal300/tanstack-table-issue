@@ -60,11 +60,10 @@ export default function CustomCombobox({
     }
   }, [searchValue]);
   React.useEffect(() => {
-    if (searchValue) {
-      setOptions(allData);
-    }
+    setOptions(allData);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [allData]);
 
   return (
     <Popover open={open} onOpenChange={setOpen} modal={true}>
