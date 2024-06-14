@@ -1,11 +1,13 @@
-import "./App.css";
-import { NotionKanban } from "./components/shared/DragAndDrop/NotionKhanban";
+// import { NotionKanban } from "./components/shared/DragAndDrop/NotionKhanban";
+
+import RequisitionForm from "./components/shared/TanstackTable/RequisitionForm";
 
 function App() {
   return (
-    <section className="flex flex-1">
+    <section className="flex flex-1 p-2">
       {/* <TableRenderProblem /> */}
-      <NotionKanban />
+      {/* <NotionKanban /> */}
+      <RequisitionForm />
     </section>
   );
 }

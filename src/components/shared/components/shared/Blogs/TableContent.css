@@ -1,0 +1,17 @@
+.table-of-contents {
+  @apply overflow-auto text-sm font-medium;
+}
+
+.table-of-contents > ul {
+  @apply list-inside list-disc;
+}
+.table-of-contents ul > li {
+  @apply border-t py-3;
+}
+.table-of-contents ul li {
+  @apply text-left;
+}
+
+.table-of-contents ul > ul {
+  @apply ml-4;
+}
